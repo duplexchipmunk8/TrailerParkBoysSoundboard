@@ -69,6 +69,8 @@ public class SoundboardFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View v,
                     int position, long id) {
                 Sound s = (Sound) getSounds().get(position);
+                s.setSoundResourceId(position);
+                System.out.println(s.getSoundResourceId());
 
                 AssetFileDescriptor afd;
                 try {
@@ -126,8 +128,12 @@ public class SoundboardFragment extends Fragment {
 
     public boolean saveAsNotification(Sound sound) {
         byte[] buffer = null;
+        
+        System.out.println(sound.getSoundResourceId());
+        
         InputStream fIn = getActivity().getBaseContext().getResources()
                 .openRawResource(sound.getSoundResourceId());
+        
         int size = 0;
 
         try {
@@ -186,7 +192,8 @@ public class SoundboardFragment extends Fragment {
 
         return true;
     }
-
+    
+    
     public void createSounds(int position) {
         mSounds = new ArrayList<Sound>();
         String assetFolder = "";
